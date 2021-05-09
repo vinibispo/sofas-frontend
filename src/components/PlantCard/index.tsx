@@ -1,32 +1,20 @@
-import React, {useCallback} from 'react';
-import {Card, Paragraph, Button} from 'react-native-paper';
+import React from 'react';
+import {Card, Button} from 'react-native-paper';
 import {View, StyleSheet, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-export default function HomeCard() {
-  const navigator = useNavigation();
-  const handleGoToPlantPage = useCallback(() => {
-    navigator.navigate('Plant', {
-      id: '1',
-    });
-  }, [navigator]);
+export default function PlantCard() {
   return (
     <View style={styles.container}>
       <Card elevation={4}>
-        <Text style={styles.title}>Shopping Living</Text>
+        <Text style={styles.title}>
+          3 quartos - 111 m {'{Unidades finais 1 e 2}'}
+        </Text>
         <Card.Cover
           style={styles.cardImage}
           source={{uri: 'https://picsum.photos/700'}}
         />
 
-        <Card.Content>
-          <Paragraph style={styles.cardParagraph}>
-            Rua Eng Leonardo Arcoverde Madalena
-          </Paragraph>
-        </Card.Content>
         <Card.Actions style={styles.cardActions}>
-          <Button onPress={handleGoToPlantPage} mode="contained">
-            Selecionar
-          </Button>
+          <Button mode="contained">Selecionar</Button>
         </Card.Actions>
       </Card>
     </View>
@@ -39,7 +27,7 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     marginVertical: 10,
-    marginHorizontal: 60,
+    marginHorizontal: 10,
   },
   cardActions: {
     marginVertical: 20,

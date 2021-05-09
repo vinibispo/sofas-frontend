@@ -8,9 +8,9 @@ import {
   Text,
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
-import HomeCard from '../components/HomeCard';
+import PlantCard from '../components/PlantCard';
 
-export default function Home() {
+export default function Plant() {
   const [search, setSearch] = useState('');
   const onChangeSearch = (query: string) => setSearch(query);
   return (
@@ -28,11 +28,11 @@ export default function Home() {
           />
         </View>
         <ScrollView>
-          <HomeCard />
+          <PlantCard />
 
-          <HomeCard />
+          <PlantCard />
 
-          <HomeCard />
+          <PlantCard />
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -57,9 +57,5 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: '#707170',
-  },
-  image: {
-    height: 40,
-    width: 60,
   },
 });
