@@ -1,42 +1,48 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {
-  Searchbar,
-  Card,
-  Title,
-  Paragraph,
-  Button,
-  Avatar,
-} from 'react-native-paper';
+  View,
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
+  ScrollView,
+} from 'react-native';
+import {Searchbar} from 'react-native-paper';
+import HomeCard from '../components/HomeCard';
 
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />;
 export default function Home() {
   const [search, setSearch] = useState('');
   const onChangeSearch = (query: string) => setSearch(query);
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Searchbar
-        placeholder="Pesquisar"
-        onChangeText={onChangeSearch}
-        value={search}
-        iconColor="#c32c4f"
-      />
-      <Card>
-        <Card.Title
-          title="Card Title"
-          subtitle="Card Subtitle"
-          left={LeftContent}
-        />
-        <Card.Content>
-          <Title>Card title</Title>
-          <Paragraph>Card content</Paragraph>
-        </Card.Content>
-        <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
-        <Card.Actions>
-          <Button>Cancel</Button>
-          <Button>Ok</Button>
-        </Card.Actions>
-      </Card>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.view}>
+        <View style={styles.search}>
+          <Searchbar
+            placeholder="Pesquisar"
+            onChangeText={onChangeSearch}
+            value={search}
+            iconColor="#c32c4f"
+          />
+        </View>
+        <ScrollView>
+          <HomeCard />
+
+          <HomeCard />
+
+          <HomeCard />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+  },
+  view: {
+    marginHorizontal: 20,
+  },
+  search: {
+    marginVertical: 10,
+  },
+});
