@@ -2,25 +2,32 @@ import React, {useCallback} from 'react';
 import {Card, Paragraph, Button} from 'react-native-paper';
 import {View, StyleSheet, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-export default function HomeCard() {
+
+interface Enterprise {
+  id: number;
+  nome: string;
+  endereco: string;
+  image: string;
+}
+interface HomeCardProps {
+  enterprise: Enterprise;
+}
+export default function HomeCard({enterprise}: HomeCardProps) {
   const navigator = useNavigation();
   const handleGoToPlantPage = useCallback(() => {
-    navigator.navigate('Plant', {
-      id: '1',
+    navigator.navigate('Planta', {
+      id: enterprise.id,
     });
-  }, [navigator]);
+  }, [navigator, enterprise]);
   return (
     <View style={styles.container}>
       <Card elevation={4}>
-        <Text style={styles.title}>Shopping Living</Text>
-        <Card.Cover
-          style={styles.cardImage}
-          source={{uri: 'https://picsum.photos/700'}}
-        />
+        <Text style={styles.title}>{enterprise.nome}</Text>
+        <Card.Cover style={styles.cardImage} source={{uri: enterprise.image}} />
 
         <Card.Content>
           <Paragraph style={styles.cardParagraph}>
-            Rua Eng Leonardo Arcoverde Madalena
+            {enterprise.endereco}
           </Paragraph>
         </Card.Content>
         <Card.Actions style={styles.cardActions}>

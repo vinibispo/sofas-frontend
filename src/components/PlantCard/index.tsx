@@ -1,20 +1,38 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Card, Button} from 'react-native-paper';
 import {View, StyleSheet, Text} from 'react-native';
-export default function PlantCard() {
+import {useNavigation} from '@react-navigation/native';
+
+interface Plan {
+  id: number;
+  room: number;
+  area: number;
+  image: string;
+  enterprise_id: number;
+}
+interface PlantCardProps {
+  plan: Plan;
+}
+export default function PlantCard({plan}: PlantCardProps) {
+  const navigator = useNavigation();
+  const handleGoToSignUpPage = useCallback(() => {
+    navigator.navigate('Cadastro', {
+      enterprise_id: plan.enterprise_id,
+      id: plan.id,
+    });
+  }, [navigator, plan]);
   return (
     <View style={styles.container}>
       <Card elevation={4}>
         <Text style={styles.title}>
-          3 quartos - 111 m {'{Unidades finais 1 e 2}'}
+          {plan.room} quartos - {plan.area} m {'{Unidades finais 1 e 2}'}
         </Text>
-        <Card.Cover
-          style={styles.cardImage}
-          source={{uri: 'https://picsum.photos/700'}}
-        />
+        <Card.Cover style={styles.cardImage} source={{uri: plan.image}} />
 
         <Card.Actions style={styles.cardActions}>
-          <Button mode="contained">Selecionar</Button>
+          <Button mode="contained" onPress={handleGoToSignUpPage}>
+            Selecionar
+          </Button>
         </Card.Actions>
       </Card>
     </View>

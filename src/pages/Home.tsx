@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -9,10 +9,27 @@ import {
 } from 'react-native';
 import {Searchbar} from 'react-native-paper';
 import HomeCard from '../components/HomeCard';
+import {api} from '../services/api';
 
+interface Enterprise {
+  id: number;
+  nome: string;
+  endereco: string;
+  image: string;
+}
 export default function Home() {
   const [search, setSearch] = useState('');
+  const [enterprises, setEnterprises] = useState<Enterprise[]>([]);
   const onChangeSearch = (query: string) => setSearch(query);
+  useEffect(() => {
+    api
+      .get('/enterprises.json', {
+        params: {
+          q: search,
+        },
+      })
+      .then(res => setEnterprises(res.data));
+  }, [search]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.view}>
@@ -28,11 +45,9 @@ export default function Home() {
           />
         </View>
         <ScrollView>
-          <HomeCard />
-
-          <HomeCard />
-
-          <HomeCard />
+          {enterprises.map(enterprise => (
+            <HomeCard enterprise={enterprise} key={enterprise.id} />
+          ))}
         </ScrollView>
       </View>
     </SafeAreaView>
