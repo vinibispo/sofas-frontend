@@ -14,6 +14,7 @@ target 'sofas_frontend' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+
   target 'sofas_frontendTests' do
     inherit! :complete
     # Pods for testing
